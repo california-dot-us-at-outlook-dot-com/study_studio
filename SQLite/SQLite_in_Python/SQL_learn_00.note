@@ -1,0 +1,33 @@
+>>> import sqlite3	//导入sqlite3
+
+>>> con=sqlite3.connect('xxx.db')	//打开 xxx.db , 相当于sqlite中的.open xxx.db
+
+>>> con.execute('create table T1 (id primary key, name)')	//在xxx.db中创建新表T1。 primary key 表示'主键'，主键在此表中不可重复。SQLite中没有类型限制。
+
+>>> con.execute('insert into T1 values ("1","小米")')	//在表T1中插入数据。
+
+>>> con.execute('insert into T1 values ("2",?)',(userName,))	//在表T2中插入数据，其中userName为变量。
+
+>>> con.execute('select * from T1 where id="1"')	//查找id=1的数据
+
+>>> a=con.execute('select * from T1 where id="1"').fetchall()	//查找id='1'的数据，并把结果传给变量a。
+
+fetchall()返回二维数组。
+
+fetchone()返回第一条数据（一维数组）
+
+fetchmany(x)返回二维数组（前x个一维数组）
+
+>>> con.commit()	//提交更改，将更改写至硬盘
+
+>>> con.close() 	//关闭数据库
+
+ update T1 set name='newName' where id='1';	SQL:中更新T1中id为‘1’的那条数据的name。
+
+SQLite中不区分大小写，包括表名
+
+>>> con.execute('create table {} (id,name)'.format(a))	//创建以变量a的值为表名的表。
+
+>>> con.execute('select {0} from {2} where id={1}'.format('name','1','T1'))
+
+>>> con.execute('select {name} from {tab} where id={id}'.format(name='xiami',tab='T1',id='1'))
